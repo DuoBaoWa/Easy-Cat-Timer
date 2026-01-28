@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,11 +24,11 @@ namespace CatTimer_WpfProject
             switch (_language)
             {
                 case LanguageType.Chinese:
-                    _dictionaryFilePath = "/CatTimer WpfProject;component/Xaml/Dictionary/ChineseTextDictionary.xaml";
+                    _dictionaryFilePath = "pack://application:,,,/CatTimer_WpfProject;component/Xaml/Dictionary/ChineseTextDictionary.xaml";
                     break;
 
                 case LanguageType.English:
-                    _dictionaryFilePath = "/CatTimer WpfProject;component/Xaml/Dictionary/EnglishTextDictionary.xaml";
+                    _dictionaryFilePath = "pack://application:,,,/CatTimer_WpfProject;component/Xaml/Dictionary/EnglishTextDictionary.xaml";
                     break;
             }
 
@@ -36,10 +36,10 @@ namespace CatTimer_WpfProject
             ResourceDictionary _resourceDictionary = new ResourceDictionary();
 
             //设置资源字典的资源
-            _resourceDictionary.Source = new Uri(_dictionaryFilePath, UriKind.Relative);
+            _resourceDictionary.Source = new Uri(_dictionaryFilePath, UriKind.RelativeOrAbsolute);
 
             //替换资源字典（替换App.xaml中的TextDictionary）
-            AppManager.MainApp.Resources.MergedDictionaries[6] = _resourceDictionary;
+            AppManager.MainApp.Resources.MergedDictionaries[1] = _resourceDictionary;
         }
     }
 }

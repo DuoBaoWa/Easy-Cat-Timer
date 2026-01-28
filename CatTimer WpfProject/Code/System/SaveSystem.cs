@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +19,7 @@ namespace CatTimer_WpfProject
         {
             Properties.Settings.Default.Volume = AppManager.AppDatas.SettingData.Volume;//是否有声音？
             Properties.Settings.Default.Language = (int)AppManager.AppDatas.SettingData.Language;//语言
+            Properties.Settings.Default.Topmost = AppManager.AppDatas.SettingData.IsTopmost;//是否置顶
 
             Properties.Settings.Default.Save();
         }
@@ -31,6 +32,7 @@ namespace CatTimer_WpfProject
         {
             AppManager.AppDatas.SettingData.Volume = Properties.Settings.Default.Volume;
             AppManager.AppDatas.SettingData.Language = (LanguageType) Properties.Settings.Default.Language;
+            AppManager.AppDatas.SettingData.IsTopmost = Properties.Settings.Default.Topmost;
 
             //更改UI
             AppManager.AppSystems.LanguageSystem.SetLanguage(AppManager.AppDatas.SettingData.Language);

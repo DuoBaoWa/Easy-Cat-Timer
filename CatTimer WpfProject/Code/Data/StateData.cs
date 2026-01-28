@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,8 +13,7 @@ namespace CatTimer_WpfProject
     public class StateData : INotifyPropertyChanged
     {
         private StateType currentState;//当前的状态
-
-
+        private TimerMode currentMode;//当前的计时模式
 
         #region 公开属性
         /// <summary>
@@ -29,12 +28,26 @@ namespace CatTimer_WpfProject
                 PropertyChange("CurrentState");
             }
         }
+
+        /// <summary>
+        /// 当前的计时模式
+        /// </summary>
+        public TimerMode CurrentMode
+        {
+            get { return currentMode; }
+            set
+            {
+                currentMode = value;
+                PropertyChange("CurrentMode");
+            }
+        }
         #endregion
 
         #region 构造方法
         public StateData()
         {
             currentState = StateType.None;
+            currentMode = TimerMode.Countdown;
         }
         #endregion
 

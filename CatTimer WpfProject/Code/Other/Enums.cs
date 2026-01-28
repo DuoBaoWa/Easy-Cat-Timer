@@ -21,6 +21,15 @@
         Stop//停止
     }
 
+    /// <summary>
+    /// 计时模式
+    /// </summary>
+    public enum TimerMode : byte
+    {
+        Countdown, // 倒计时
+        Forward    // 正向计时
+    }
+
 
     /// <summary>
     /// 音效的类型

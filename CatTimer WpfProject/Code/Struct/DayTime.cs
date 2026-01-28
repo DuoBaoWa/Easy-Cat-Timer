@@ -1,4 +1,4 @@
-﻿/* 类名：DayTime.cs
+/* 类名：DayTime.cs
  * 作者：絮大王
  * 邮箱：sukiup@163.com
  * 时间：2019年3月6日15:33:34 */
@@ -288,7 +288,7 @@ public class DayTime : INotifyPropertyChanged
     /// </summary>
     public static bool operator ==(DayTime d1, DayTime d2)
     {
-        return d1.DayToSecond <= d2.DayToSecond;
+        return d1.DayToSecond == d2.DayToSecond;
     }
 
     #endregion 重写运算符 -[DayTime与DayTime的比较]

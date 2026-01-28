@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -16,6 +16,7 @@ namespace CatTimer_WpfProject
         /* 设置相关 */
         private int volume;//音量
         private LanguageType language;//语言
+        private bool isTopmost;//是否置顶
 
 
 
@@ -46,6 +47,19 @@ namespace CatTimer_WpfProject
                 PropertyChange("Language");//更新UI
             }
         }
+
+        /// <summary>
+        /// 是否置顶
+        /// </summary>
+        public bool IsTopmost
+        {
+            get { return isTopmost; }
+            set
+            {
+                isTopmost = value;
+                PropertyChange("IsTopmost");//更新UI
+            }
+        }
         #endregion
 
         #region 构造方法
@@ -53,6 +67,7 @@ namespace CatTimer_WpfProject
         {
             volume = 100;
             language = LanguageType.Chinese;
+            isTopmost = false;
         }
         #endregion 构造方法
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -96,30 +96,6 @@ namespace CatTimer_WpfProject
 
 
 
-        /* 按钮 */
-        //当鼠标进入[工作人员按钮]时
-        private void StaffButton_OnMouseEnter(object sender, MouseEventArgs e)
-        {
-            OpenOrCloseStaff(true);//显示工作人员的界面
-        }
-        //当鼠标移出[工作人员按钮]时
-        private void StaffButton_OnMouseLeave(object sender, MouseEventArgs e)
-        {
-
-            OpenOrCloseStaff(false);//关闭工作人员的界面
-        }
-
-
-        //当鼠标点击[Github按钮]时
-        private void GithubButton_OnClick(object sender, RoutedPropertyChangedEventArgs<bool> e)
-        {
-            //调用系统默认的浏览器
-            System.Diagnostics.Process.Start("https://github.com/xujiangjiang/Easy-Cat-Timer");
-        }
-
-
-
-
         /* 滑动条 */
         //当鼠标进入[音量滑动条]时
         private void VolumeSlider_OnMouseEnter(object sender, MouseEventArgs e)
@@ -174,15 +150,6 @@ namespace CatTimer_WpfProject
             AppManager.AppSystems.LanguageSystem.SetLanguage(_languageType);
         }
 
-
-        /// <summary>
-        /// 打开或者关闭 [工作人员名单]
-        /// </summary>
-        /// <param name="_isOpen"></param>
-        private void OpenOrCloseStaff(bool _isOpen)
-        {
-            this.StaffPopup.IsOpen = _isOpen; //关闭Popup控件
-        }
 
         #endregion
 

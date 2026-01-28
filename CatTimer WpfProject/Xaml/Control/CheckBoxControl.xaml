@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="CatTimer_WpfProject.CheckBoxControl"
+<UserControl x:Class="CatTimer_WpfProject.CheckBoxControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -38,11 +38,11 @@
 
 
 
-    <Grid>
+    <Grid Background="Transparent">
 
         <CheckBox Name="BaseCheckBox"
-                  Style="{StaticResource CheckBoxStyle}"
-                  IsChecked="{Binding ElementName=CheckBoxUserControl,Path=IsChecked}"
+                  Style="{DynamicResource CheckBoxStyle}"
+                  IsChecked="{Binding ElementName=CheckBoxUserControl,Path=IsChecked,Mode=TwoWay}"
                   Background="{Binding ElementName=CheckBoxUserControl,Path=Background}"
                   RenderTransformOrigin="0.5,0.5"
                   PreviewMouseDown="CheckBox_OnPreviewMouseDown"

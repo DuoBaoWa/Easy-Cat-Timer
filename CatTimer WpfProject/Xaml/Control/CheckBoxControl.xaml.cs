@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -324,7 +324,7 @@ namespace CatTimer_WpfProject
             //注册IsCheckedProperty
             IsCheckedProperty = DependencyProperty.Register(
                 "IsChecked", typeof(bool), typeof(CheckBoxControl),
-                new FrameworkPropertyMetadata((bool)false, new PropertyChangedCallback(OnIsCheckedChanged)));
+                new FrameworkPropertyMetadata((bool)false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, new PropertyChangedCallback(OnIsCheckedChanged)));
 
 
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -78,32 +78,63 @@ namespace CatTimer_WpfProject
         // 定时器的Tick事件：当定时器每次达到间隔时间时，都会触发一次Tick事件
         private void TimerOnTick(object sender, EventArgs e)
         {
-            /* 判断是否进行倒计时？ */
+            /* 判断是否进行计时？ */
             if (AppManager.AppDatas.StateData.CurrentState != StateType.Run) return;
 
-
-            /* 如果已经是0秒了，就停止此任务 */
-            if (AppManager.AppDatas.TimeData.CurrentTime.DayToSecond <= 0)
+            if (AppManager.AppDatas.StateData.CurrentMode == TimerMode.Countdown)
             {
-                //停止此任务
-                StopHandle();
+                /* 倒计时逻辑 */
+                /* 如果已经是0秒了，就停止此任务 */
+                if (AppManager.AppDatas.TimeData.CurrentTime.DayToSecond <= 0)
+                {
+                    //停止此任务
+                    StopHandle();
 
-                //更新[任务栏进度条]
-                AppManager.AppSystems.TaskbarSystem.SetProgressValueAndState(1, TaskbarItemProgressState.Paused);
+                    //更新[任务栏进度条]
+                    AppManager.AppSystems.TaskbarSystem.SetProgressValueAndState(1, TaskbarItemProgressState.Paused);
 
-                //弹出通知
-                AppManager.AppSystems.NotificationSystem.ShowNotification();
+                    //弹出通知
+                    AppManager.AppSystems.NotificationSystem.ShowNotification();
+                }
+                else
+                {
+                    /* 如果要进行，就让时间减1秒 */
+                    AppManager.AppDatas.TimeData.CurrentTime.AddOrRemoveSeconds(-1);
+
+                    /* 更新[任务栏进度条] */
+                    float _currentTimeSeconds = AppManager.AppDatas.TimeData.CurrentTime.DayToSecond;//当前倒计时的时间
+                    float _inputTimeSeconds = AppManager.AppDatas.TimeData.InputTime.DayToSecond;//用户输入的时间
+                    AppManager.AppSystems.TaskbarSystem.SetProgressValueAndState(
+                        (_inputTimeSeconds - _currentTimeSeconds) / _inputTimeSeconds);//目前进度 = 当前用了多少秒 / 总时间
+                }
             }
             else
             {
-                /* 如果要进行，就让时间减1秒 */
-                AppManager.AppDatas.TimeData.CurrentTime.AddOrRemoveSeconds(-1);
+                /* 正向计时逻辑 */
+                AppManager.AppDatas.TimeData.CurrentTime.AddOrRemoveSeconds(1);
 
-                /* 更新[任务栏进度条] */
-                float _currentTimeSeconds = AppManager.AppDatas.TimeData.CurrentTime.DayToSecond;//当前倒计时的时间
-                float _inputTimeSeconds = AppManager.AppDatas.TimeData.InputTime.DayToSecond;//用户输入的时间
-                AppManager.AppSystems.TaskbarSystem.SetProgressValueAndState(
-                    (_inputTimeSeconds - _currentTimeSeconds) / _inputTimeSeconds);//目前进度 = 当前用了多少秒 / 总时间
+                /* 更新[任务栏进度条] - 正向计时通常不显示进度，或者显示为正在运行 */
+                float _currentTimeSeconds = AppManager.AppDatas.TimeData.CurrentTime.DayToSecond;
+                float _inputTimeSeconds = AppManager.AppDatas.TimeData.InputTime.DayToSecond;
+
+                if (_inputTimeSeconds > 0)
+                {
+                    // 如果设置了目标时间，显示进度
+                    AppManager.AppSystems.TaskbarSystem.SetProgressValueAndState(_currentTimeSeconds / _inputTimeSeconds);
+
+                    // 如果到达目标时间，停止并通知
+                    if (_currentTimeSeconds >= _inputTimeSeconds)
+                    {
+                        StopHandle();
+                        AppManager.AppSystems.TaskbarSystem.SetProgressValueAndState(1, TaskbarItemProgressState.Paused);
+                        AppManager.AppSystems.NotificationSystem.ShowNotification();
+                    }
+                }
+                else
+                {
+                    // 如果没有设置目标时间（从0开始），显示不确定进度
+                    AppManager.AppSystems.TaskbarSystem.SetProgressValueAndState(0.5, TaskbarItemProgressState.Indeterminate);
+                }
             }
         }
         #endregion

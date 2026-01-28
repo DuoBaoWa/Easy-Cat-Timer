@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -133,6 +133,25 @@ namespace CatTimer_WpfProject
         private void StartButton_Click(object sender, RoutedPropertyChangedEventArgs<bool> e)
         {
             StartTimer();
+        }
+
+        /// <summary>
+        /// 当勾选[正向计时]时
+        /// </summary>
+        private void ModeCheckBox_OnChecked(object sender, RoutedPropertyChangedEventArgs<bool> e)
+        {
+            AppManager.AppDatas.StateData.CurrentMode = TimerMode.Forward;
+            // 切换到正向计时时，通常从0开始，清空当前输入
+            MinuteTextBlock.Text = "00";
+            SecondTextBlock.Text = "00";
+        }
+
+        /// <summary>
+        /// 当取消勾选[正向计时]时
+        /// </summary>
+        private void ModeCheckBox_OnUnchecked(object sender, RoutedPropertyChangedEventArgs<bool> e)
+        {
+            AppManager.AppDatas.StateData.CurrentMode = TimerMode.Countdown;
         }
         #endregion
 
@@ -404,8 +423,18 @@ namespace CatTimer_WpfProject
 
             //更改时间
             int _totalSecond = _minuteNumber * 60 + _secondNumber;//倒计时的总秒数
-            AppManager.AppDatas.TimeData.CurrentTime.DayToSecond = _totalSecond;
-            AppManager.AppDatas.TimeData.InputTime.DayToSecond = _totalSecond;
+            
+            if (AppManager.AppDatas.StateData.CurrentMode == TimerMode.Countdown)
+            {
+                AppManager.AppDatas.TimeData.CurrentTime.DayToSecond = _totalSecond;
+                AppManager.AppDatas.TimeData.InputTime.DayToSecond = _totalSecond;
+            }
+            else
+            {
+                // 正向计时：从0开始，目标是 _totalSecond
+                AppManager.AppDatas.TimeData.CurrentTime.DayToSecond = 0;
+                AppManager.AppDatas.TimeData.InputTime.DayToSecond = _totalSecond;
+            }
 
             //让计时开始
             AppManager.AppSystems.TimeSystem.StartHandle();
@@ -586,6 +615,5 @@ namespace CatTimer_WpfProject
         }
         #endregion
 
-        
     }
 }

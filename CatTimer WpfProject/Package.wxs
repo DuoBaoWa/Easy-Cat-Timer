@@ -1,0 +1,39 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+  <Package Name="CatTimer" Language="1033" Version="1.0.0.0" Manufacturer="EasyCatTimer" UpgradeCode="D2D8E4F5-1B2C-3D4E-AF6B-7A8B9C0D1E2F">
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+
+    <MediaTemplate EmbedCab="yes" />
+
+    <StandardDirectory Id="ProgramFiles64Folder">
+      <Directory Id="INSTALLFOLDER" Name="CatTimer" />
+    </StandardDirectory>
+
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="ApplicationProgramsFolder" Name="CatTimer" />
+    </StandardDirectory>
+
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Id="MainExecutable" Guid="A1B2C3D4-E5F6-4A5B-8C7D-8E9F0A1B2C3D">
+        <File Id="CatTimerEXE" Source="Publish\CatTimer_v1.0_FrameworkDependent\CatTimer_WpfProject.exe" KeyPath="yes" />
+        <Shortcut Id="ApplicationStartMenuShortcut" Name="CatTimer" Description="Cute Cat Timer" Directory="ApplicationProgramsFolder" WorkingDirectory="INSTALLFOLDER" Icon="icon.ico" Advertise="yes" />
+        <RemoveFolder Id="CleanupShortcut" Directory="ApplicationProgramsFolder" On="uninstall" />
+      </Component>
+      
+      <Component Id="AppConfig" Guid="B2C3D4E5-F6A7-4B6C-AD8E-9F0A1B2C3D4E">
+        <File Source="Publish\CatTimer_v1.0_FrameworkDependent\CatTimer_WpfProject.dll.config" />
+      </Component>
+
+      <!-- Include Asset folder content -->
+      <Files Include="Publish\CatTimer_v1.0_FrameworkDependent\Asset\**" />
+    </ComponentGroup>
+
+    <Feature Id="ProductFeature" Title="CatTimer" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+
+    <Icon Id="icon.ico" SourceFile="Asset\Icon\Icon.ico" />
+    <Property Id="ARPPRODUCTICON" Value="icon.ico" />
+
+    <ui:WixUI Id="WixUI_InstallDir" InstallDirectory="INSTALLFOLDER" />
+  </Package>
+</Wix>

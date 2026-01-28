@@ -23,17 +23,6 @@ Cat Timer 是一个极其简单、可爱的计时器软件。
 - **.NET 6 迁移**：将项目从过时的 .NET Framework 4.6.1 迁移到了现代化的 **.NET 6.0 (Windows)** 平台，提升了运行效率和系统兼容性。
 - **代码重构**：优化了计时逻辑系统，使用 `TimerMode` 枚举管理状态，并实现了更完善的 `INotifyPropertyChanged` 数据绑定。
 
-### 3. 体验与界面优化
-- **窗口置顶**：新增“窗口置顶”选项，方便在工作时随时监控时间。
-- **字体修复**：统一了正向计时与倒计时的字体显示，确保视觉一致性。
-- **界面精简**：移除了原版中失效的社交链接与冗余面板，使界面更加清爽、专注。
-- **启动优化**：修复了原版在部分系统环境下无法正常启动的 Bug。
-
-### 4. 专业化打包
-- **独立 EXE**：支持发布为独立运行的可执行文件，无需预装运行时。
-- **标准 MSI 安装包**：提供了完整的 Windows 安装程序，支持自定义安装位置、自动创建桌面快捷方式。
-- **消除黑窗口**：优化了程序类型，彻底解决了启动时伴随出现的黑色终端窗口问题。
-
 ---
 
 ## 技术细节
@@ -42,13 +31,20 @@ Cat Timer 是一个极其简单、可爱的计时器软件。
 | :--- | :--- |
 | **计时系统** | 基于 `DispatcherTimer` 实现，支持 `Countdown` 和 `Forward` 两种模式。 |
 | **UI 框架** | 纯 WPF 实现，包含大量自定义控件与异形窗口设计。 |
+| **目标平台** | .NET 6.0 (Windows)，采用 **Framework-dependent** 发布以优化体积。 |
 | **数据持久化** | 使用 `Settings.settings` 自动保存用户的置顶设置、音量及计时模式。 |
-| **资源管理** | 采用程序集内嵌资源（字体、图片）与外部内容（音效）相结合的方式。 |
+| **打包技术** | 使用 WiX Toolset v5 编写安装脚本，实现自动化资源收集。 |
 
 ## 安装与运行
 
-1. **下载安装包**：下载并运行 `CatTimerSetup.msi`。
-2. **手动运行**：直接运行 `publish` 目录下的 `CatTimer_WpfProject.exe`。
+1. **下载安装包**：在项目根目录找到 `CatTimerSetup.msi` 并运行。
+2. **环境要求**：运行环境需安装 [.NET 6.0 Desktop Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)。
+3. **手动编译**：
+   ```powershell
+   # 在 CatTimer WpfProject 目录下执行
+   dotnet publish -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true -o Publish\Release
+   dotnet wix build Package.wxs -ext WixToolset.UI.wixext -o CatTimerSetup.msi
+   ```
 
 ---
 

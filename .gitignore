@@ -21,8 +21,14 @@
 [Rr]eleases/
 x64/
 x86/
+# WiX Toolset
+.wix/
 [Ww][Ii][Xx][Oo][Bb][Jj]
 [Ww][Ii][Xx][Pp][Dd][Bb]
+*.wixpdb
+
+# Publish folders
+[Pp]ublish/
 arm/
 arm64/
 bld/
@@ -70,7 +76,6 @@ nunit-*.xml
 .DS_Store
 Thumbs.db
 desktop.ini
-publish/
 *.bak
 *.tmp
 *.temp

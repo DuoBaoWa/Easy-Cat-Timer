@@ -1,4 +1,4 @@
-﻿<!--中文的文字-->
+<!--中文的文字-->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:CatTimer_WpfProject"
@@ -42,5 +42,21 @@
     <!--通知界面 的文字-->
     <ImageBrush x:Key="Notification.Text.ImageBrush"
                 ImageSource="/CatTimer_WpfProject;component/Asset/Image/Text/Chinese/Notification.png"></ImageBrush>
+    <ImageBrush x:Key="Notification.Text2.ImageBrush"
+                ImageSource="/CatTimer_WpfProject;component/Asset/Image/Text/Chinese/Notification2.png"></ImageBrush>
+
+    <!--番茄钟相关-->
+    <System:String x:Key="Pomodoro.State.Work">专注中</System:String>
+    <System:String x:Key="Pomodoro.State.Rest">休息中</System:String>
+    <System:String x:Key="Pomodoro.Cycle.Format">第 {0} 轮</System:String>
+    <System:String x:Key="Setting.Pomodoro.Text">番茄钟</System:String>
+    <System:String x:Key="Setting.Pomodoro.Work">工作</System:String>
+    <System:String x:Key="Setting.Pomodoro.Rest">休息</System:String>
+    <System:String x:Key="Setting.Pomodoro.Cycle">循环</System:String>
+    <System:String x:Key="Timing.Mode.Countdown">倒计时</System:String>
+    <System:String x:Key="Timing.Mode.Forward">正向计时</System:String>
+    <System:String x:Key="Notification.Pomodoro.AllComplete">番茄钟任务已全部完成！</System:String>
+    <System:String x:Key="Notification.Pomodoro.WorkEnd">工作结束，休息一下吧！</System:String>
+    <System:String x:Key="Notification.Pomodoro.RestEnd.Format">休息结束，第 {0} 轮工作开始！</System:String>
 
 </ResourceDictionary>

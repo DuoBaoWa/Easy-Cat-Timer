@@ -20,6 +20,10 @@ namespace CatTimer_WpfProject
             Properties.Settings.Default.Volume = AppManager.AppDatas.SettingData.Volume;//是否有声音？
             Properties.Settings.Default.Language = (int)AppManager.AppDatas.SettingData.Language;//语言
             Properties.Settings.Default.Topmost = AppManager.AppDatas.SettingData.IsTopmost;//是否置顶
+            Properties.Settings.Default.IsPomodoroEnabled = AppManager.AppDatas.SettingData.IsPomodoroEnabled;
+            Properties.Settings.Default.PomodoroWorkTime = AppManager.AppDatas.SettingData.PomodoroWorkTime;
+            Properties.Settings.Default.PomodoroRestTime = AppManager.AppDatas.SettingData.PomodoroRestTime;
+            Properties.Settings.Default.PomodoroCycleCount = AppManager.AppDatas.SettingData.PomodoroCycleCount;
 
             Properties.Settings.Default.Save();
         }
@@ -33,6 +37,10 @@ namespace CatTimer_WpfProject
             AppManager.AppDatas.SettingData.Volume = Properties.Settings.Default.Volume;
             AppManager.AppDatas.SettingData.Language = (LanguageType) Properties.Settings.Default.Language;
             AppManager.AppDatas.SettingData.IsTopmost = Properties.Settings.Default.Topmost;
+            AppManager.AppDatas.SettingData.IsPomodoroEnabled = Properties.Settings.Default.IsPomodoroEnabled;
+            AppManager.AppDatas.SettingData.PomodoroWorkTime = Properties.Settings.Default.PomodoroWorkTime;
+            AppManager.AppDatas.SettingData.PomodoroRestTime = Properties.Settings.Default.PomodoroRestTime;
+            AppManager.AppDatas.SettingData.PomodoroCycleCount = Properties.Settings.Default.PomodoroCycleCount;
 
             //更改UI
             AppManager.AppSystems.LanguageSystem.SetLanguage(AppManager.AppDatas.SettingData.Language);

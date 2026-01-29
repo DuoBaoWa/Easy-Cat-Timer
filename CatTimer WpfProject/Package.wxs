@@ -1,5 +1,5 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
-  <Package Name="CatTimer" Language="1033" Version="1.0.0.0" Manufacturer="EasyCatTimer" UpgradeCode="D2D8E4F5-1B2C-3D4E-AF6B-7A8B9C0D1E2F">
+  <Package Name="Cat Timer" Manufacturer="ZhiZhi" Version="1.0.7" UpgradeCode="68098c47-3866-4876-9214-49c71a351187" Scope="perMachine">
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 
     <MediaTemplate EmbedCab="yes" />
@@ -12,19 +12,21 @@
       <Directory Id="ApplicationProgramsFolder" Name="CatTimer" />
     </StandardDirectory>
 
+    <StandardDirectory Id="DesktopFolder" />
+
     <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
       <Component Id="MainExecutable" Guid="A1B2C3D4-E5F6-4A5B-8C7D-8E9F0A1B2C3D">
-        <File Id="CatTimerEXE" Source="Publish\CatTimer_v1.0_FrameworkDependent\CatTimer_WpfProject.exe" KeyPath="yes" />
+        <File Id="CatTimerEXE" Source="bin\Release\net6.0-windows\win-x64\standalone_compressed_v1.0.7\CatTimer_WpfProject.exe" KeyPath="yes" />
         <Shortcut Id="ApplicationStartMenuShortcut" Name="CatTimer" Description="Cute Cat Timer" Directory="ApplicationProgramsFolder" WorkingDirectory="INSTALLFOLDER" Icon="icon.ico" Advertise="yes" />
+        <Shortcut Id="ApplicationDesktopShortcut" Name="CatTimer" Description="CatTimer" Directory="DesktopFolder" WorkingDirectory="INSTALLFOLDER" Icon="icon.ico" Advertise="yes" />
         <RemoveFolder Id="CleanupShortcut" Directory="ApplicationProgramsFolder" On="uninstall" />
       </Component>
-      
-      <Component Id="AppConfig" Guid="B2C3D4E5-F6A7-4B6C-AD8E-9F0A1B2C3D4E">
-        <File Source="Publish\CatTimer_v1.0_FrameworkDependent\CatTimer_WpfProject.dll.config" />
-      </Component>
 
-      <!-- Include Asset folder content -->
-      <Files Include="Publish\CatTimer_v1.0_FrameworkDependent\Asset\**" />
+      <!-- Include all files from the publish directory (Self-Contained Compressed) -->
+      <Files Include="bin\Release\net6.0-windows\win-x64\standalone_compressed_v1.0.7\**">
+        <!-- Exclude the exe because it's already defined in the MainExecutable component -->
+        <Exclude Files="bin\Release\net6.0-windows\win-x64\standalone_compressed_v1.0.7\CatTimer_WpfProject.exe" />
+      </Files>
     </ComponentGroup>
 
     <Feature Id="ProductFeature" Title="CatTimer" Level="1">

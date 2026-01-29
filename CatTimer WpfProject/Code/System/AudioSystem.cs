@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Media;
@@ -58,7 +58,11 @@ namespace CatTimer_WpfProject
             /* 构造SoundPlayer的对象 */
             //[完成]的音效
             completeMediaPlayer = new MediaPlayer();
-            completeMediaPlayer.Open(new Uri(System.Environment.CurrentDirectory+"/Asset/Audio/Complete.wav", UriKind.Absolute));
+            string completePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Asset", "Audio", "Complete.wav");
+            if (System.IO.File.Exists(completePath))
+            {
+                completeMediaPlayer.Open(new Uri(completePath, UriKind.Absolute));
+            }
 
             //[普通按钮按下]+[普通按钮抬起]的音效
             defaultButtonDownSoundPlayer = new SoundPlayer();
@@ -102,7 +106,11 @@ namespace CatTimer_WpfProject
             {
                 case AudioType.Complete:
                     completeMediaPlayer.Volume = AppManager.AppDatas.SettingData.Volume / 100.0f;
-                    completeMediaPlayer.Open(new Uri(System.Environment.CurrentDirectory + "/Asset/Audio/Complete/Complete(Volume1.0).wav", UriKind.Absolute));
+                    string completeVolumePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Asset", "Audio", "Complete", "Complete(Volume1.0).wav");
+                    if (System.IO.File.Exists(completeVolumePath))
+                    {
+                        completeMediaPlayer.Open(new Uri(completeVolumePath, UriKind.Absolute));
+                    }
                     completeMediaPlayer.Stop();
                     completeMediaPlayer.Play();
                     break;

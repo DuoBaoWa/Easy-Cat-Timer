@@ -16,7 +16,7 @@
         <!--关闭按钮：点击后，关闭此窗口-->
         <local:ButtonControl x:Name="CloseButtonControl"
                              ButtonStyle="{StaticResource NoBackgroundButtonStyle}"
-                             Width="394" Height="344"
+                             Width="300" Height="340"
                              Background="Transparent"></local:ButtonControl>
 
 
@@ -27,59 +27,41 @@
 
         <!--这是一个很大的Button：点击这个Button，可以关闭界面-->
         <Button Name="CloseButton"
-                Height="344" Width="394" 
+                Height="340" Width="300" 
                 Style="{StaticResource NoBackgroundButtonStyle}"
                 Click="CloseButton_OnClick"
                 PreviewMouseDown="CloseButton_OnPreviewMouseDown"
                 PreviewMouseUp="CloseButton_OnPreviewMouseUp"></Button>
 
         <!--背景-->
-        <Border Width="228" Height="286" Canvas.Left="148" Canvas.Top="42"
+        <Border Width="200" Height="260" Canvas.Left="50" Canvas.Top="35"
                             Background="White" CornerRadius="12"
                             Opacity="1">
             <Border.Effect>
                 <DropShadowEffect Direction="0" ShadowDepth="0" BlurRadius="20" 
-                                              Opacity="0.2" Color="#FF7A7A7A"></DropShadowEffect>
+                                              Opacity="0.22" Color="#FF7A7A7A"></DropShadowEffect>
             </Border.Effect>
 
-            <Border Width="16" Height="11" Margin="70,-289,0,0"
+            <Border Width="16" Height="11" Margin="140,-275,0,0"
                     Background="{StaticResource Icon.WhiteArrow.ImageBrush}"></Border>
         </Border>
         <!--波点2-->
-        <Border Width="220" Height="276" Canvas.Left="152" Canvas.Top="48"
+        <Border Width="190" Height="250" Canvas.Left="55" Canvas.Top="40"
                 Background="{StaticResource Other.WavePoint.ImageBrush}" 
                 IsHitTestVisible="False"></Border>
 
-
-
-
-        <!--上半部分的内容-->
-        <Canvas Width="228" Height="288" Canvas.Left="148" Canvas.Top="40">
-            <!--装饰线（分割线）-->
-            <Border Width="193" Height="72" Canvas.Left="20" Canvas.Top="57"
-                                Background="{StaticResource Other.DivideLine.ImageBrush}"></Border>
-            <!--Logo-->
-            <Border Width="115" Height="114" Canvas.Left="13" Canvas.Top="19"
-                                Background="{StaticResource Icon.Logo.ImageBrush}"></Border>
-            <!--版本号-->
-            <Border Width="46" Height="18" Canvas.Left="132" Canvas.Top="44"
-                                Background="{StaticResource Other.Version.ImageBrush}"></Border>
-
-        </Canvas>
-
-
         <!--下半部分的内容-->
-        <Canvas Width="228" Height="144" Canvas.Left="148" Canvas.Top="184">
+        <Canvas Width="200" Height="260" Canvas.Left="50" Canvas.Top="35">
             <!--文字部分-->
             <Border Name="TitleBorder"
-                    Width="76" Height="64"
-                    Background="{DynamicResource Setting.Title.ImageBrush}" Canvas.Left="28" Canvas.Top="32"></Border>
+                    Width="60" Height="50"
+                    Background="{DynamicResource Setting.Title.ImageBrush}" Canvas.Left="15" Canvas.Top="15"></Border>
 
 
             <!--声音-->
             <Slider Name="VolumeSlider"
                     Style="{DynamicResource CuteSliderStyle}" 
-                    Width="112" Height="20" Canvas.Left="95" Canvas.Top="38"
+                    Width="100" Height="20" Canvas.Left="85" Canvas.Top="20"
                     Minimum="0" Maximum="100" Value="{Binding SettingData.Volume}"
                     Orientation="Horizontal" LargeChange="20" SmallChange="20"
                     TickFrequency="20" IsSnapToTickEnabled="True"
@@ -89,26 +71,72 @@
 
             <!--语言-->
             <local:ToggleControl x:Name="LanguageToggleControl"
-                                 Width="80" Height="28" Canvas.Left="117" Canvas.Top="70"
+                                 Width="70" Height="24" Canvas.Left="105" Canvas.Top="45"
                                  Icon="{StaticResource Setting.Chinese.ImageBrush}"
-                                 IconWidth="71" IconHeight="24"></local:ToggleControl>
+                                 IconWidth="62" IconHeight="21"></local:ToggleControl>
 
             <!--置顶-->
             <TextBlock Text="{DynamicResource Setting.Topmost.Text}" 
-                       FontFamily="{StaticResource MaybeCuteFontFamily.IncreaseSpacing}"
-                       FontSize="18" Foreground="#FF656565"
-                       Canvas.Left="32" Canvas.Top="105" />
+                       FontSize="16" Foreground="#FF656565"
+                       Canvas.Left="20" Canvas.Top="80" />
             <local:CheckBoxControl x:Name="TopmostCheckBox"
-                                   Width="18" Height="18" Canvas.Left="150" Canvas.Top="107"
+                                   Width="16" Height="16" Canvas.Left="140" Canvas.Top="82"
                                    Background="{StaticResource CheckBox.Background.ImageBrush}"
                                    Icon="{StaticResource CheckBox.Foreground.ImageBrush}"
-                                   IconWidth="12" IconHeight="12"
+                                   IconWidth="10" IconHeight="10"
                                    Cursor="Hand"
                                    IsChecked="{Binding SettingData.IsTopmost, Mode=TwoWay}" />
 
+            <!--番茄钟开启-->
+            <TextBlock Text="{DynamicResource Setting.Pomodoro.Text}" 
+                       FontSize="16" Foreground="#FF656565"
+                       Canvas.Left="20" Canvas.Top="110" />
+            <local:CheckBoxControl x:Name="PomodoroEnabledCheckBox"
+                                   Width="16" Height="16" Canvas.Left="140" Canvas.Top="112"
+                                   Background="{StaticResource CheckBox.Background.ImageBrush}"
+                                   Icon="{StaticResource CheckBox.Foreground.ImageBrush}"
+                                   IconWidth="10" IconHeight="10"
+                                   Cursor="Hand"
+                                   IsChecked="{Binding SettingData.IsPomodoroEnabled, Mode=TwoWay}" />
+
+            <!--番茄钟配置 (仅开启时显示)-->
+            <StackPanel Canvas.Left="20" Canvas.Top="140" Width="160"
+                        Visibility="{Binding SettingData.IsPomodoroEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                
+                <!--工作时间-->
+                <StackPanel Orientation="Horizontal" Margin="0,3">
+                    <TextBlock Text="{DynamicResource Setting.Pomodoro.Work}" FontSize="12" Foreground="#FF656565" Width="45"
+                               VerticalAlignment="Center"/>
+                    <Slider Width="70" Minimum="5" Maximum="60" TickFrequency="5" IsSnapToTickEnabled="True"
+                            Value="{Binding SettingData.PomodoroWorkTime}" Style="{DynamicResource CuteSliderStyle}"/>
+                    <TextBlock Text="{Binding SettingData.PomodoroWorkTime}" FontSize="12" Foreground="#FF656565" Margin="3,0"
+                               FontFamily="{StaticResource MaybeCuteFontFamily}" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!--休息时间-->
+                <StackPanel Orientation="Horizontal" Margin="0,3">
+                    <TextBlock Text="{DynamicResource Setting.Pomodoro.Rest}" FontSize="12" Foreground="#FF656565" Width="45"
+                               VerticalAlignment="Center"/>
+                    <Slider Width="70" Minimum="1" Maximum="30" TickFrequency="1" IsSnapToTickEnabled="True"
+                            Value="{Binding SettingData.PomodoroRestTime}" Style="{DynamicResource CuteSliderStyle}"/>
+                    <TextBlock Text="{Binding SettingData.PomodoroRestTime}" FontSize="12" Foreground="#FF656565" Margin="3,0"
+                               FontFamily="{StaticResource MaybeCuteFontFamily}" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!--循环次数-->
+                <StackPanel Orientation="Horizontal" Margin="0,3">
+                    <TextBlock Text="{DynamicResource Setting.Pomodoro.Cycle}" FontSize="12" Foreground="#FF656565" Width="45"
+                               VerticalAlignment="Center"/>
+                    <Slider Width="70" Minimum="1" Maximum="10" TickFrequency="1" IsSnapToTickEnabled="True"
+                            Value="{Binding SettingData.PomodoroCycleCount}" Style="{DynamicResource CuteSliderStyle}"/>
+                    <TextBlock Text="{Binding SettingData.PomodoroCycleCount}" FontSize="12" Foreground="#FF656565" Margin="3,0"
+                               FontFamily="{StaticResource MaybeCuteFontFamily}" VerticalAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
+
             <Grid Name="LanguageGrid"
                   Visibility="{Binding ElementName=LanguageToggleControl,Path=IsChecked,Converter={StaticResource BooleanToVisibilityConverter}}"
-                  Width="105" Height="74" Canvas.Left="104" Canvas.Top="-7">
+                  Width="90" Height="60" Canvas.Left="100" Canvas.Top="-10">
                 <Border Background="#FFFFCA00" CornerRadius="10">
                     <Border.Effect>
                         <DropShadowEffect Direction="0" ShadowDepth="0" BlurRadius="15" 

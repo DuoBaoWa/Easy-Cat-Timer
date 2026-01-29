@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Media;
@@ -44,6 +44,32 @@ namespace CatTimer_WpfProject
 
         /* 容器 */
         private double windowWidth = 400;//窗口的宽度
+
+
+        /// <summary>
+        /// 设置文字的笔刷
+        /// </summary>
+        /// <param name="brushKey">笔刷的Key</param>
+        public void SetTextBrush(string brushKey)
+        {
+            var brush = this.FindResource(brushKey) as Brush;
+            if (brush != null)
+            {
+                TextBorder.Background = brush;
+                StatusTextBlock.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        /// <summary>
+        /// 设置显示文本
+        /// </summary>
+        /// <param name="text">文本内容</param>
+        public void SetStatusText(string text)
+        {
+            StatusTextBlock.Text = text;
+            StatusTextBlock.Visibility = Visibility.Visible;
+            TextBorder.Background = null; // 清除背景图以显示文字
+        }
 
 
 

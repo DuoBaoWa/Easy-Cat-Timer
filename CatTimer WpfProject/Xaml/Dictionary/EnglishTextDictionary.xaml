@@ -36,5 +36,21 @@
     <!--通知界面 的文字-->
     <ImageBrush x:Key="Notification.Text.ImageBrush"
                 ImageSource="/CatTimer_WpfProject;component/Asset/Image/Text/English/Notification.png"></ImageBrush>
+    <ImageBrush x:Key="Notification.Text2.ImageBrush"
+                ImageSource="/CatTimer_WpfProject;component/Asset/Image/Text/English/Notification.png"></ImageBrush>
+
+    <!--番茄钟相关-->
+    <System:String x:Key="Pomodoro.State.Work">Focusing</System:String>
+    <System:String x:Key="Pomodoro.State.Rest">Resting</System:String>
+    <System:String x:Key="Pomodoro.Cycle.Format">Cycle {0}</System:String>
+    <System:String x:Key="Setting.Pomodoro.Text">Pomodoro</System:String>
+    <System:String x:Key="Setting.Pomodoro.Work">Work</System:String>
+    <System:String x:Key="Setting.Pomodoro.Rest">Rest</System:String>
+    <System:String x:Key="Setting.Pomodoro.Cycle">Cycle</System:String>
+    <System:String x:Key="Timing.Mode.Countdown">Countdown</System:String>
+    <System:String x:Key="Timing.Mode.Forward">Forward</System:String>
+    <System:String x:Key="Notification.Pomodoro.AllComplete">Pomodoro task completed!</System:String>
+    <System:String x:Key="Notification.Pomodoro.WorkEnd">Work finished, take a rest!</System:String>
+    <System:String x:Key="Notification.Pomodoro.RestEnd.Format">Rest finished, cycle {0} starts!</System:String>
 
 </ResourceDictionary>

@@ -11,10 +11,6 @@
                 ImageSource="/CatTimer_WpfProject;component/Asset/Image/Icon/Close.png"></ImageBrush>
     <ImageBrush x:Key="Icon.WhiteArrow.ImageBrush"
                 ImageSource="/CatTimer_WpfProject;component/Asset/Image/Icon/WhiteArrow.png"></ImageBrush>
-    <ImageBrush x:Key="Icon.Logo.ImageBrush"
-                ImageSource="/CatTimer_WpfProject;component/Asset/Image/Icon/Logo.png"></ImageBrush>
-    <ImageBrush x:Key="Icon.AppInfo.ImageBrush"
-                ImageSource="/CatTimer_WpfProject;component/Asset/Image/Icon/AppInfo.png"></ImageBrush>
     <ImageBrush x:Key="UpDownButton.Up.ImageBrush"
                 ImageSource="/CatTimer_WpfProject;component/Asset/Image/Icon/UpDownButton-Up.png"></ImageBrush>
     <ImageBrush x:Key="UpDownButton.Down.ImageBrush"
@@ -54,13 +50,6 @@
     <!--其他-->
     <ImageBrush x:Key="Other.WavePoint.ImageBrush"
                 ImageSource="/CatTimer_WpfProject;component/Asset/Image/Other/WavePoint.png"></ImageBrush>
-    <ImageBrush x:Key="Other.Version.ImageBrush"
-                ImageSource="/CatTimer_WpfProject;component/Asset/Image/Other/Version.png"></ImageBrush>
-    <ImageBrush x:Key="Other.DivideLine.ImageBrush"
-                ImageSource="/CatTimer_WpfProject;component/Asset/Image/Other/DivideLine.png"></ImageBrush>
-
-
-    <!--通知-->
     <ImageBrush x:Key="Notification.Cat.ImageBrush"
                 ImageSource="/CatTimer_WpfProject;component/Asset/Image/Cat/NotificationCat.png"></ImageBrush>
 

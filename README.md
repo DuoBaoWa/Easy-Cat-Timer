@@ -1,6 +1,6 @@
-# Cat Timer (Enhanced)
+# Cat Timer (Enhanced) - v1.0.7
 
-Cat Timer 是一个极其简单、可爱的计时器软件。
+Cat Timer 是一个极其简单、可爱且功能丰富的计时器软件。
 
 ![主界面](ReadMeImage/MainWindow.png)
 
@@ -10,41 +10,61 @@ Cat Timer 是一个极其简单、可爱的计时器软件。
 
 ---
 
-## 新增功能 (2026-01-28)
+## 核心功能与优化 (v1.0.7)
 
-在原版基础上，我进行了以下核心功能升级与优化：
+在原版基础上，本项目进行了深度的功能扩展与用户体验优化：
 
-### 1. 正向计时功能
-- **双模式切换**：不仅支持原有的倒计时功能，新增了**正向计时**模式。
-- **UI 集成**：在设置界面添加了模式切换开关，支持一键切换计时方向。
-- **独立音效**：为正向计时模式配置了专属的开始、暂停、重置及完成音效。
+### 1. 计时模式升级
+- **双模式切换**：支持传统的**倒计时**（Countdown）和新增的**正向计时**（Forward）模式。
+- **番茄钟增强**：优化了番茄钟通知逻辑，使用 `Viewbox` 确保不同长度的提醒文字都能完美显示，不再被遮挡。
 
-### 2. 技术架构现代化
-- **.NET 6 迁移**：将项目从过时的 .NET Framework 4.6.1 迁移到了现代化的 **.NET 6.0 (Windows)** 平台，提升了运行效率和系统兼容性。
-- **代码重构**：优化了计时逻辑系统，使用 `TimerMode` 枚举管理状态，并实现了更完善的 `INotifyPropertyChanged` 数据绑定。
+### 2. UI 与交互打磨
+- **完美衔接**：修复了黑猫组件底部的空白间隙，使猫咪与桌面/任务栏的视觉衔接更加自然。
+- **设置界面优化**：重新设计了设置面板的布局，完美兼容中英文显示，移除了冗余字体库以减小体积。
+- **窗口管理**：支持置顶显示、音量调节，并能自动保存用户的使用习惯。
+
+### 3. 技术架构现代化
+- **.NET 6 迁移**：全面升级至 **.NET 6.0 (Windows)** 平台，运行更流畅，兼容性更强。
+- **WiX 自动化打包**：采用 WiX Toolset v5 构建安装包，支持“面向所有用户”的系统级安装。
+- **发布模式优化**：支持 `Self-contained`（自带运行时）压缩发布，解决用户电脑没有 .NET 环境的运行难题。
 
 ---
 
 ## 技术细节
 
-| 功能模块 | 说明 |
+| 模块 | 说明 |
 | :--- | :--- |
-| **计时系统** | 基于 `DispatcherTimer` 实现，支持 `Countdown` 和 `Forward` 两种模式。 |
-| **UI 框架** | 纯 WPF 实现，包含大量自定义控件与异形窗口设计。 |
-| **目标平台** | .NET 6.0 (Windows)，采用 **Framework-dependent** 发布以优化体积。 |
-| **数据持久化** | 使用 `Settings.settings` 自动保存用户的置顶设置、音量及计时模式。 |
-| **打包技术** | 使用 WiX Toolset v5 编写安装脚本，实现自动化资源收集。 |
+| **计时核心** | 基于 `DispatcherTimer` 实现，高精度管理双模式计时逻辑。 |
+| **UI 框架** | 纯 WPF 实现，包含大量自定义 Path 动画与异形窗口设计。 |
+| **目标平台** | .NET 6.0 (Windows)。 |
+| **持久化** | 使用 `Settings.settings` 存储模式、音量及置顶状态。 |
+| **打包方案** | 使用 WiX Toolset 构建 `.msi` 安装包，支持全局安装。 |
 
-## 安装与运行
+---
 
-1. **下载安装包**：在项目根目录找到 `CatTimerSetup.msi` 并运行。
-2. **环境要求**：运行环境需安装 [.NET 6.0 Desktop Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)。
-3. **手动编译**：
-   ```powershell
-   # 在 CatTimer WpfProject 目录下执行
-   dotnet publish -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true -o Publish\Release
-   dotnet wix build Package.wxs -ext WixToolset.UI.wixext -o CatTimerSetup.msi
-   ```
+## 下载与安装
+
+### 方案 A：全能安装包（推荐）
+下载 **[CatTimer_v1.0.7_AllUsers.msi](CatTimer%20WpfProject/CatTimer_v1.0.7_AllUsers.msi)**。
+- **特点**：自带运行环境，双击即可为所有用户安装，无需额外配置。
+
+### 方案 B：极简运行包
+如果您已安装 [.NET 6.0 Desktop Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)，可直接下载极简包。
+- [minimal_package_v1.0.7](CatTimer%20WpfProject/bin/Release/net6.0-windows/win-x64/minimal_package_v1.0.7)
+
+---
+
+## 开发者指南
+
+若需手动编译或打包：
+
+```powershell
+# 1. 发布程序
+dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true -o Publish\Compressed
+
+# 2. 构建 MSI
+wix build Package.wxs -ext WixToolset.UI.wixext -o CatTimer_v1.0.7.msi
+```
 
 ---
 

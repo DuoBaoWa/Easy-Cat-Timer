@@ -17,8 +17,10 @@ namespace CatTimer_WpfProject
         private int volume;//音量
         private LanguageType language;//语言
         private bool isTopmost;//是否置顶
-
-
+        private bool isPomodoroEnabled;//是否开启番茄钟
+        private int pomodoroWorkTime;//番茄钟工作时间
+        private int pomodoroRestTime;//番茄钟休息时间
+        private int pomodoroCycleCount;//番茄钟循环次数
 
         #region 公开属性
         /// <summary>
@@ -60,6 +62,58 @@ namespace CatTimer_WpfProject
                 PropertyChange("IsTopmost");//更新UI
             }
         }
+
+        /// <summary>
+        /// 是否开启番茄钟
+        /// </summary>
+        public bool IsPomodoroEnabled
+        {
+            get { return isPomodoroEnabled; }
+            set
+            {
+                isPomodoroEnabled = value;
+                PropertyChange("IsPomodoroEnabled");//更新UI
+            }
+        }
+
+        /// <summary>
+        /// 番茄钟工作时间（分钟）
+        /// </summary>
+        public int PomodoroWorkTime
+        {
+            get { return pomodoroWorkTime; }
+            set
+            {
+                pomodoroWorkTime = value;
+                PropertyChange("PomodoroWorkTime");//更新UI
+            }
+        }
+
+        /// <summary>
+        /// 番茄钟休息时间（分钟）
+        /// </summary>
+        public int PomodoroRestTime
+        {
+            get { return pomodoroRestTime; }
+            set
+            {
+                pomodoroRestTime = value;
+                PropertyChange("PomodoroRestTime");//更新UI
+            }
+        }
+
+        /// <summary>
+        /// 番茄钟循环次数
+        /// </summary>
+        public int PomodoroCycleCount
+        {
+            get { return pomodoroCycleCount; }
+            set
+            {
+                pomodoroCycleCount = value;
+                PropertyChange("PomodoroCycleCount");//更新UI
+            }
+        }
         #endregion
 
         #region 构造方法
@@ -68,6 +122,10 @@ namespace CatTimer_WpfProject
             volume = 100;
             language = LanguageType.Chinese;
             isTopmost = false;
+            isPomodoroEnabled = false;
+            pomodoroWorkTime = 25;
+            pomodoroRestTime = 5;
+            pomodoroCycleCount = 4;
         }
         #endregion 构造方法
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,10 +33,26 @@ namespace CatTimer_WpfProject
         /// 显示一个通知窗口
         /// （显示一条通知）
         /// </summary>
-        public void ShowNotification()
+        /// <param name="isNotification2">是否使用第二种通知图片</param>
+        /// <param name="statusText">要显示的文本（如果提供，则忽略图片）</param>
+        public void ShowNotification(bool isNotification2 = false, string statusText = null)
         {
             //new 一个通知窗口
             NotificationWindow notificationWindow = new NotificationWindow();
+
+            //如果提供了文本
+            if (!string.IsNullOrEmpty(statusText))
+            {
+                notificationWindow.SetStatusText(statusText);
+            }
+            else
+            {
+                //如果使用第二种通知图片
+                if (isNotification2)
+                {
+                    notificationWindow.SetTextBrush("Notification.Text2.ImageBrush");
+                }
+            }
 
             //当窗口关闭时，触发什么方法？
             notificationWindow.Closed += NotificationWindow_Closed;

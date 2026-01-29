@@ -136,11 +136,19 @@ namespace CatTimer_WpfProject
         }
 
         /// <summary>
+        /// 当点击[番茄钟]按钮时
+        /// </summary>
+        private void PomodoroButton_Click(object sender, RoutedPropertyChangedEventArgs<bool> e)
+        {
+            StartPomodoro();
+        }
+
+        /// <summary>
         /// 当勾选[正向计时]时
         /// </summary>
         private void ModeCheckBox_OnChecked(object sender, RoutedPropertyChangedEventArgs<bool> e)
-        {
-            AppManager.AppDatas.StateData.CurrentMode = TimerMode.Forward;
+        {                AppManager.AppDatas.StateData.CurrentMode = TimerMode.Forward;
+            ModeTextBlock.Text = Application.Current.FindResource("Timing.Mode.Forward") as string ?? "正向计时";
             // 切换到正向计时时，通常从0开始，清空当前输入
             MinuteTextBlock.Text = "00";
             SecondTextBlock.Text = "00";
@@ -150,8 +158,8 @@ namespace CatTimer_WpfProject
         /// 当取消勾选[正向计时]时
         /// </summary>
         private void ModeCheckBox_OnUnchecked(object sender, RoutedPropertyChangedEventArgs<bool> e)
-        {
-            AppManager.AppDatas.StateData.CurrentMode = TimerMode.Countdown;
+        {                AppManager.AppDatas.StateData.CurrentMode = TimerMode.Countdown;
+            ModeTextBlock.Text = Application.Current.FindResource("Timing.Mode.Countdown") as string ?? "倒计时";
         }
         #endregion
 
@@ -384,6 +392,16 @@ namespace CatTimer_WpfProject
         /// </summary>
         private void Open()
         {
+            // 同步模式显示
+            if (AppManager.AppDatas.StateData.CurrentMode == TimerMode.Forward)
+            {                ModeCheckBox.IsChecked = true;
+                ModeTextBlock.Text = Application.Current.FindResource("Timing.Mode.Forward") as string ?? "正向计时";
+            }
+            else
+            {                ModeCheckBox.IsChecked = false;
+                ModeTextBlock.Text = Application.Current.FindResource("Timing.Mode.Countdown") as string ?? "倒计时";
+            }
+
             //修改Ui
             MinuteTextBlock.Text = (AppManager.AppDatas.TimeData.InputTime.Hour * 60 + AppManager.AppDatas.TimeData.InputTime.Minute) + "";
             SecondTextBlock.Text = (int)(AppManager.AppDatas.TimeData.InputTime.Second) + "";
@@ -394,6 +412,9 @@ namespace CatTimer_WpfProject
 
             //显示此控件
             this.Visibility = Visibility.Visible;
+
+            //播放音效
+            AppManager.AppSystems.AudioSystem.PlayAudio(AudioType.CatDown);
         }
 
         /// <summary>
@@ -440,6 +461,30 @@ namespace CatTimer_WpfProject
             AppManager.AppSystems.TimeSystem.StartHandle();
 
             //关闭此界面
+            OpenOrClose(false);
+        }
+
+        /// <summary>
+        /// 开始番茄钟
+        /// </summary>
+        public void StartPomodoro()
+        {
+            // 设置模式为番茄钟
+            AppManager.AppDatas.StateData.CurrentMode = TimerMode.Pomodoro;
+            
+            // 初始化番茄钟状态
+            AppManager.AppDatas.TimeData.PomodoroState = PomodoroState.Work;
+            AppManager.AppDatas.TimeData.CurrentCycle = 1;
+            
+            // 设置时间
+            int _workSeconds = AppManager.AppDatas.SettingData.PomodoroWorkTime * 60;
+            AppManager.AppDatas.TimeData.CurrentTime.DayToSecond = _workSeconds;
+            AppManager.AppDatas.TimeData.InputTime.DayToSecond = _workSeconds;
+
+            // 让计时开始
+            AppManager.AppSystems.TimeSystem.StartHandle();
+
+            // 关闭此界面
             OpenOrClose(false);
         }
         #endregion

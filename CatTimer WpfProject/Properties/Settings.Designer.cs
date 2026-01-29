@@ -58,5 +58,53 @@ namespace CatTimer_WpfProject.Properties {
                 this["Topmost"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsPomodoroEnabled {
+            get {
+                return ((bool)(this["IsPomodoroEnabled"]));
+            }
+            set {
+                this["IsPomodoroEnabled"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("25")]
+        public int PomodoroWorkTime {
+            get {
+                return ((int)(this["PomodoroWorkTime"]));
+            }
+            set {
+                this["PomodoroWorkTime"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public int PomodoroRestTime {
+            get {
+                return ((int)(this["PomodoroRestTime"]));
+            }
+            set {
+                this["PomodoroRestTime"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        public int PomodoroCycleCount {
+            get {
+                return ((int)(this["PomodoroCycleCount"]));
+            }
+            set {
+                this["PomodoroCycleCount"] = value;
+            }
+        }
     }
 }

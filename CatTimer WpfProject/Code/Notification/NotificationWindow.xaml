@@ -1,4 +1,4 @@
-﻿<!--屏幕右下角的通知窗口-->
+<!--屏幕右下角的通知窗口-->
 <Window x:Class="CatTimer_WpfProject.NotificationWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -34,8 +34,15 @@
                             Width="160" Height="128" Canvas.Left="15"/>
 
                     <!--通知：文字-->
-                    <Border Background="{DynamicResource Notification.Text.ImageBrush}"
-                            Width="221" Height="64" Canvas.Left="200" Canvas.Top="51"></Border>
+                    <Border Name="TextBorder" Background="{DynamicResource Notification.Text.ImageBrush}"
+                            Width="250" Height="64" Canvas.Left="180" Canvas.Top="51">
+                        <Viewbox MaxWidth="245" MaxHeight="60">
+                            <TextBlock Name="StatusTextBlock" Text="" Foreground="#FF656565" 
+                                       FontSize="24" FontFamily="{StaticResource MaybeCuteFontFamily}"
+                                       VerticalAlignment="Center" HorizontalAlignment="Center"
+                                       Visibility="Collapsed"/>
+                        </Viewbox>
+                    </Border>
 
                     <!--按钮：关闭-->
                     <local:ButtonControl ButtonStyle="{StaticResource ButtonStyle}"

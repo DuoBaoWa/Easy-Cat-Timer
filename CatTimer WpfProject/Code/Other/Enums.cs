@@ -1,4 +1,4 @@
-﻿namespace CatTimer_WpfProject
+﻿﻿﻿﻿﻿namespace CatTimer_WpfProject
 {
     /// <summary>
     /// 语言的类型
@@ -27,9 +27,18 @@
     public enum TimerMode : byte
     {
         Countdown, // 倒计时
-        Forward    // 正向计时
+        Forward,   // 正向计时
+        Pomodoro   // 番茄钟
     }
 
+    /// <summary>
+    /// 番茄钟状态
+    /// </summary>
+    public enum PomodoroState : byte
+    {
+        Work, // 工作
+        Rest  // 休息
+    }
 
     /// <summary>
     /// 音效的类型

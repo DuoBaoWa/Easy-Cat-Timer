@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -47,9 +47,9 @@ namespace CatTimer_WpfProject
         /// <summary>
         /// 公开属性：图标
         /// </summary>
-        public ImageBrush Icon
+        public Brush Icon
         {
-            get { return (ImageBrush)GetValue(IconProperty); }
+            get { return (Brush)GetValue(IconProperty); }
             set { SetValue(IconProperty, value); }
         }
 
@@ -223,11 +223,11 @@ namespace CatTimer_WpfProject
             //注册IconProperty
             IconProperty = DependencyProperty.Register(
                 "Icon", //属性的名字
-                typeof(ImageBrush),//属性的类型
+                typeof(Brush),//属性的类型
                 typeof(ButtonControl),//这个属性属于哪个控件？
                 new FrameworkPropertyMetadata(//属性的初始值和回调函数
                     //初始值
-                    (ImageBrush)null,
+                    (Brush)null,
                     //当属性的值发生改变时，调用什么方法？
                     new PropertyChangedCallback(OnIconChanged))
             );

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Shell;
 using System.Windows.Threading;
 
@@ -37,6 +38,16 @@ namespace CatTimer_WpfProject
 
             //开始运行计时器
             timer.Start();
+
+            // 如果是番茄钟模式或正向计时模式，开始时弹出通知
+            if (AppManager.AppDatas.StateData.CurrentMode == TimerMode.Pomodoro)
+            {
+                AppManager.AppSystems.NotificationSystem.ShowNotification(true, "开始专注吧！");
+            }
+            else if (AppManager.AppDatas.StateData.CurrentMode == TimerMode.Forward)
+            {
+                AppManager.AppSystems.NotificationSystem.ShowNotification(true);
+            }
         }
 
 
@@ -106,6 +117,64 @@ namespace CatTimer_WpfProject
                     float _inputTimeSeconds = AppManager.AppDatas.TimeData.InputTime.DayToSecond;//用户输入的时间
                     AppManager.AppSystems.TaskbarSystem.SetProgressValueAndState(
                         (_inputTimeSeconds - _currentTimeSeconds) / _inputTimeSeconds);//目前进度 = 当前用了多少秒 / 总时间
+                }
+            }
+            else if (AppManager.AppDatas.StateData.CurrentMode == TimerMode.Pomodoro)
+            {
+                /* 番茄钟逻辑 */
+                if (AppManager.AppDatas.TimeData.CurrentTime.DayToSecond <= 0)
+                {
+                    if (AppManager.AppDatas.TimeData.PomodoroState == PomodoroState.Work)
+                    {
+                        // 工作结束
+                        if (AppManager.AppDatas.TimeData.CurrentCycle >= AppManager.AppDatas.SettingData.PomodoroCycleCount)
+                        {
+                            // 所有循环结束
+                            StopHandle();
+                            AppManager.AppSystems.TaskbarSystem.SetProgressValueAndState(1, TaskbarItemProgressState.Paused);
+                            string msg = Application.Current.FindResource("Notification.Pomodoro.AllComplete") as string ?? "番茄钟任务已全部完成！";
+                            AppManager.AppSystems.NotificationSystem.ShowNotification(false, msg);
+                            // 播放完成音效
+                            AppManager.AppSystems.AudioSystem.PlayAudio(AudioType.Complete);
+                        }
+                        else
+                        {
+                            // 进入休息
+                            AppManager.AppDatas.TimeData.PomodoroState = PomodoroState.Rest;
+                            AppManager.AppDatas.TimeData.CurrentTime.DayToSecond = AppManager.AppDatas.SettingData.PomodoroRestTime * 60;
+                            string msg = Application.Current.FindResource("Notification.Pomodoro.WorkEnd") as string ?? "工作结束，休息一下吧！";
+                            AppManager.AppSystems.NotificationSystem.ShowNotification(false, msg);
+                            // 播放休息开始音效（可以复用猫咪坐下音效）
+                            AppManager.AppSystems.AudioSystem.PlayAudio(AudioType.CatDown);
+                        }
+                    }
+                    else
+                    {
+                        // 休息结束，进入下一个工作循环
+                        AppManager.AppDatas.TimeData.PomodoroState = PomodoroState.Work;
+                        AppManager.AppDatas.TimeData.CurrentCycle++;
+                        AppManager.AppDatas.TimeData.CurrentTime.DayToSecond = AppManager.AppDatas.SettingData.PomodoroWorkTime * 60;
+                        string format = Application.Current.FindResource("Notification.Pomodoro.RestEnd.Format") as string ?? "休息结束，第 {0} 轮工作开始！";
+                        AppManager.AppSystems.NotificationSystem.ShowNotification(true, string.Format(format, AppManager.AppDatas.TimeData.CurrentCycle));
+                        // 播放工作开始音效（可以复用猫咪站起来音效）
+                        AppManager.AppSystems.AudioSystem.PlayAudio(AudioType.CatUp);
+                    }
+                }
+                else
+                {
+                    // 时间递减
+                    AppManager.AppDatas.TimeData.CurrentTime.AddOrRemoveSeconds(-1);
+
+                    // 更新进度条
+                    float _currentTimeSeconds = AppManager.AppDatas.TimeData.CurrentTime.DayToSecond;
+                    float _totalTimeSeconds = AppManager.AppDatas.TimeData.PomodoroState == PomodoroState.Work ?
+                        AppManager.AppDatas.SettingData.PomodoroWorkTime * 60 :
+                        AppManager.AppDatas.SettingData.PomodoroRestTime * 60;
+
+                    if (_totalTimeSeconds > 0)
+                    {
+                        AppManager.AppSystems.TaskbarSystem.SetProgressValueAndState((_totalTimeSeconds - _currentTimeSeconds) / _totalTimeSeconds);
+                    }
                 }
             }
             else

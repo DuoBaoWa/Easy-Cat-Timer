@@ -9,20 +9,20 @@
              d:DesignHeight="344" d:DesignWidth="394"
              Name="TimingUserControl">
 
-    <Grid>
+    <Grid Width="300" Height="340">
 
         <!--白底-->
-        <Border Background="White" Opacity="1"></Border>
+        <Border Background="White" Opacity="1" Height="340"></Border>
 
 
         
         <!--背景-->
         <Canvas>
-            <Border Background="#e2e2e2" Opacity="1"
-                    Height="177" Width="139" Canvas.Left="193" Canvas.Top="82"
-                    CornerRadius="10"></Border>
             <Border Background="#ffcd2f" Opacity="1"
-                    Height="177" Width="139" Canvas.Left="60" Canvas.Top="64"
+                    Height="110" Width="90" Canvas.Left="55" Canvas.Top="105"
+                    CornerRadius="10"></Border>
+            <Border Background="#e2e2e2" Opacity="1"
+                    Height="110" Width="90" Canvas.Left="155" Canvas.Top="105"
                     CornerRadius="10"></Border>
 
         </Canvas>
@@ -32,21 +32,21 @@
         <Canvas>
             <!--冒号-->
             <TextBlock Text=":" 
-                       Foreground="#FF656565" FontSize="240" FontFamily="{StaticResource MaybeCuteFontFamily}"
-                       Canvas.Top="40" Canvas.Left="185"/>
+                       Foreground="#FF656565" FontSize="150" FontFamily="{StaticResource MaybeCuteFontFamily}"
+                       Canvas.Top="75" Canvas.Left="140"/>
 
             <!--分钟-->
-            <Border Canvas.Top="62" Canvas.Left="36" Height="200" Width="150">
+            <Border Canvas.Top="90" Canvas.Left="35" Height="120" Width="110">
                 <!--剪裁-->
                 <Border.Clip>
-                    <RectangleGeometry Rect="0,0,200,200"/>
+                    <RectangleGeometry Rect="0,0,110,120"/>
                 </Border.Clip>
 
                 <!--分钟-->
                 <TextBox Name="MinuteTextBlock" Text="{Binding ElementName=TimingUserControl,Path=Minute}"
                      BorderBrush="Transparent" BorderThickness="0" Background="Transparent" 
-                     Foreground="#FF656565" FontSize="240"
-                     Padding="0,-20,0,0"
+                     Foreground="#FF656565" FontSize="150"
+                     Padding="0,-10,0,0"
                      TextAlignment="Center"
                      FontFamily="{StaticResource MaybeCuteFontFamily}"
                      MaxLength="2"
@@ -61,17 +61,17 @@
             </Border>
 
             <!--秒数-->
-            <Border Canvas.Top="62" Canvas.Right="36" Height="200" Width="150">
+            <Border Canvas.Top="90" Canvas.Right="35" Height="120" Width="110">
                 <!--剪裁-->
                 <Border.Clip>
-                    <RectangleGeometry Rect="0,0,200,200"/>
+                    <RectangleGeometry Rect="0,0,110,120"/>
                 </Border.Clip>
 
                 <!--秒数-->
                 <TextBox Name="SecondTextBlock" Text="{Binding ElementName=TimingUserControl,Path=Second}"
                      BorderBrush="Transparent" BorderThickness="0" Background="Transparent" 
-                     Foreground="#FF656565" FontSize="240"
-                     Padding="0,-20,0,0"
+                     Foreground="#FF656565" FontSize="150"
+                     Padding="0,-10,0,0"
                      TextAlignment="Center"
                      FontFamily="{StaticResource MaybeCuteFontFamily}"
                      MaxLength="2"
@@ -87,14 +87,30 @@
 
         </Canvas>
 
-            
+
         <!--按钮-->
         <Canvas>
+            <!--模式切换-->
+            <local:CheckBoxControl x:Name="ModeCheckBox"
+                                   Canvas.Left="25" Canvas.Top="275"
+                                   Width="16" Height="16"
+                                   Background="{StaticResource CheckBox.Background.ImageBrush}"
+                                   Icon="{StaticResource CheckBox.Foreground.ImageBrush}"
+                                   IconWidth="10" IconHeight="10"
+                                   Cursor="Hand"
+                                   Checked="ModeCheckBox_OnChecked"
+                                   Unchecked="ModeCheckBox_OnUnchecked"/>
+            <TextBlock x:Name="ModeTextBlock" Text="{DynamicResource Timing.Mode.Forward}" 
+                    Foreground="#FF656565" FontSize="16" 
+                    FontFamily="{StaticResource MaybeCuteFontFamily.IncreaseSpacing}"
+                    Canvas.Left="45" Canvas.Top="273"
+                    IsHitTestVisible="False"/>
+
             <!--分钟按钮-->
             <local:ButtonControl x:Name="MinuteUpButton"
                                  ButtonStyle="{StaticResource NoBackgroundButtonStyle}"
                                  Icon="{StaticResource UpDownButton.Up.ImageBrush}"
-                                 IconWidth="20" IconHeight="20" Canvas.Top="36" Canvas.Left="102"
+                                 IconWidth="16" IconHeight="16" Canvas.Top="80" Canvas.Left="87"
                                  Cursor="Hand"
                                  Click="MinuteUpButton_Click"
                                  PreviewMouseLeftButtonDown="MinuteUpButton_OnPreviewMouseLeftButtonDown"
@@ -102,7 +118,7 @@
             <local:ButtonControl x:Name="MinuteDownButton"
                                  ButtonStyle="{StaticResource NoBackgroundButtonStyle}"
                                  Icon="{StaticResource UpDownButton.Down.ImageBrush}"
-                                 IconWidth="20" IconHeight="20" Canvas.Top="261" Canvas.Left="102"
+                                 IconWidth="16" IconHeight="16" Canvas.Top="215" Canvas.Left="87"
                                  Cursor="Hand"
                                  Click="MinuteDownButton_Click"
                                  PreviewMouseLeftButtonDown="MinuteDownButton_OnPreviewMouseLeftButtonDown"
@@ -112,7 +128,7 @@
             <local:ButtonControl x:Name="SecondUpButton"
                                  ButtonStyle="{StaticResource NoBackgroundButtonStyle}"
                                  Icon="{StaticResource UpDownButton.Up.ImageBrush}"
-                                 IconWidth="20" IconHeight="20" Canvas.Top="36" Canvas.Left="270"
+                                 IconWidth="16" IconHeight="16" Canvas.Top="80" Canvas.Left="200"
                                  Cursor="Hand"
                                  Click="SecondUpButton_Click"
                                  PreviewMouseLeftButtonDown="SecondUpButton_OnPreviewMouseLeftButtonDown"
@@ -120,35 +136,36 @@
             <local:ButtonControl x:Name="SecondDownButton"
                                  ButtonStyle="{StaticResource NoBackgroundButtonStyle}"
                                  Icon="{StaticResource UpDownButton.Down.ImageBrush}"
-                                 IconWidth="20" IconHeight="20" Canvas.Top="261" Canvas.Left="270"
+                                 IconWidth="16" IconHeight="16" Canvas.Top="215" Canvas.Left="200"
                                  Cursor="Hand"
                                  Click="SecondDownButton_Click"
                                  PreviewMouseLeftButtonDown="SecondDownButton_OnPreviewMouseLeftButtonDown"
                                  PreviewMouseLeftButtonUp="SecondDownButton_OnPreviewMouseLeftButtonUp"/>
 
-            <!--开始按钮-->
             <local:ButtonControl x:Name="SrartButton"
                                  ButtonStyle="{StaticResource NoBackgroundButtonStyle}"
                                  Icon="{DynamicResource Timing.Start.ImageBrush}"
-                                 IconWidth="85" IconHeight="39" Canvas.Right="48" Canvas.Top="283"
+                                 IconWidth="70" IconHeight="32" Canvas.Right="25" Canvas.Top="270"
                                  Cursor="Hand"
                                  Click="StartButton_Click"/>
 
-            <!--模式切换-->
-        <local:CheckBoxControl x:Name="ModeCheckBox"
-                               Canvas.Left="36" Canvas.Top="298"
-                               Width="18" Height="18"
-                               Background="{StaticResource CheckBox.Background.ImageBrush}"
-                               Icon="{StaticResource CheckBox.Foreground.ImageBrush}"
-                               IconWidth="12" IconHeight="12"
-                               Cursor="Hand"
-                               Checked="ModeCheckBox_OnChecked"
-                               Unchecked="ModeCheckBox_OnUnchecked"/>
-        <TextBlock x:Name="ModeTextBlock" Text="正向计时" 
-                    Foreground="#FF656565" FontSize="18" 
-                    FontFamily="{StaticResource MaybeCuteFontFamily.IncreaseSpacing}"
-                    Canvas.Left="60" Canvas.Top="296"
-                    IsHitTestVisible="False"/>
+            <local:ButtonControl x:Name="PomodoroButton"
+                                 ButtonStyle="{StaticResource NoBackgroundButtonStyle}"
+                                 Width="80" Height="40" Canvas.Left="110" Canvas.Top="260"
+                                 IconWidth="80" IconHeight="40"
+                                 Cursor="Hand"
+                                 Click="PomodoroButton_Click"
+                                 Visibility="{Binding SettingData.IsPomodoroEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <local:ButtonControl.Icon>
+                    <VisualBrush>
+                        <VisualBrush.Visual>
+                            <TextBlock Text="{Binding SettingData.PomodoroWorkTime, StringFormat='{}{0}min'}" 
+                                       Foreground="#FF656565" 
+                                       FontSize="24" FontFamily="{StaticResource MaybeCuteFontFamily}" />
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </local:ButtonControl.Icon>
+            </local:ButtonControl>
         </Canvas>
 
     </Grid>
